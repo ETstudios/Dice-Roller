@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -17,9 +18,12 @@ public class Dice : MonoBehaviour
         get { return showAnimation; }
         set { showAnimation = value; }
     }
+
+    private RollsManager manager;
     private Rigidbody rb;
     private int range = 0;
     private Transform startTransform;
+    private Dictionary<string, GameObject> diceOptions = new Dictionary<string, GameObject>();
 
 
     /// <summary>
@@ -29,7 +33,17 @@ public class Dice : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         startTransform = GetComponent<Transform>();
+        manager = FindObjectOfType<RollsManager>(true);
 Roll(); // DEBUGGING
+    }
+
+
+    private void Start()
+    {
+        foreach (DieOption die in GetComponentsInChildren<DieOption>(true))
+        {
+            diceOptions.Add(die.name, die.gameObject);
+        }
     }
 
 
@@ -92,6 +106,8 @@ Roll(); // DEBUGGING
     /// <param name="sides"> int Number of sides to die. </param>
     public void SwitchDice(int sides)
     {
+        bool isValidDie = false;
+
         switch (sides)
         {
             default:
@@ -105,9 +121,24 @@ Roll(); // DEBUGGING
             case 12:
             case 20:
             case 100:
-                // Dice mesh + collider change logic
-                // Also change active number for the random range logic?
+                isValidDie = true;
                 break;
+        }
+
+        if (isValidDie && diceOptions.Count > 0)
+        {
+            foreach (string index in diceOptions.Keys)
+            {
+                string side = sides.ToString();
+                if (side == index)
+                {
+                    diceOptions[side].SetActive(true);
+                }
+                else
+                {
+                    diceOptions[side].SetActive(false);
+                }
+            }
         }
     }
 
@@ -141,4 +172,7 @@ Roll(); // DEBUGGING
  *              Run raycast from RollsManager.diceCamera
  *              On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
  *          Runs RollsManager.AddResult() with roll result
+ *          
+ *      SwitchDice()
+ *          Switch model to use, nested inside this object
  */
