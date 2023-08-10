@@ -11,15 +11,25 @@ public class Dice : MonoBehaviour
     [SerializeField] private float torqueMin = 0.1f;
     [SerializeField] private float torqueMax = 2f;
     [SerializeField] private float throwStrength = 10;
+    [SerializeField] private bool showAnimation = true;
+    public bool IsAnimating
+    {
+        get { return showAnimation; }
+        set { showAnimation = value; }
+    }
     private Rigidbody rb;
     private int range = 0;
-    // Add flag for "showAnimation"
+    private Transform startTransform;
 
 
+    /// <summary>
+    /// Sets properties.
+    /// </summary>
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        Roll(); // DEBUGGING
+        startTransform = GetComponent<Transform>();
+Roll(); // DEBUGGING
     }
 
 
@@ -37,18 +47,30 @@ public class Dice : MonoBehaviour
     /// Rolls the die and gets result.
     /// </summary>
     public void Roll()
-    {
+    {        
         if (range == 0) { SwitchDice(6); }
 
-        // Check showAnimation flag. If true, run animation, else just run RollCheck().
+        if (!showAnimation)
+        {
+            RollCheck();
+        }
+        else
+        {
+            // Reset die position
+            rb.useGravity = false;
+            transform.position = startTransform.position;
+            transform.rotation = startTransform.rotation;
+            rb.useGravity = true;
 
-        rb.AddForce(Vector3.up * throwStrength, ForceMode.Impulse);
+            // Throw die up
+            rb.AddForce(Vector3.up * throwStrength, ForceMode.Impulse);
 
-        rb.AddTorque(transform.forward * GetTorque() + transform.up * GetTorque() + transform.right * GetTorque());
-            // Takes in vector, tells it which axis to roll around and how much to rotate by
-            // Above logic: Rotates a random amount around each axis of transform
+            // Rotate random amount around each axis of transform
+            rb.AddTorque(transform.forward * GetTorque() + transform.up * GetTorque() + transform.right * GetTorque());
+            
 
-        StartCoroutine(WaitForStop());
+            StartCoroutine(WaitForStop());
+        }
     }
 
 
@@ -58,10 +80,7 @@ public class Dice : MonoBehaviour
     public int RollCheck()
     {
         int roll = -1;
-
-        // Use camera as a raycast source, on hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
-
-        //Debug.Log(roll);
+        Debug.Log(roll);
         return roll;
     }
 
@@ -85,7 +104,7 @@ public class Dice : MonoBehaviour
             case 12:
             case 20:
             case 100:
-                // Dice change logic
+                // Dice mesh + collider change logic
                 // Also change active number for the random range logic?
                 break;
         }
@@ -111,3 +130,34 @@ public class Dice : MonoBehaviour
         StopCoroutine(WaitForStop());
     }
 }
+
+/*
+ * TO DO
+ *  This
+ *      RollCheck()
+ *          Gets result
+ *          Runs RollsManager.AddResult() with roll result
+ *      
+ *  RollsManager
+ *      Property GameObject dice
+ *      Property List<int> roll results
+ *      Property Camera dice camera
+ *      Property RectTransform scrollrect content - used as results feed and updating scrollbar size
+ *      Property Text result text (prefab) - used to instance .gameObject with each new result, set .text and .name as roll result
+ *      Property Dropdown dice type - used to switch dice value
+ *      Property Button roll button - used to run roll
+ *              
+ *      void Awake()
+ *          Sets rollButton.onClick to run Roll()
+ *          
+ *      void AddResult(int result)
+ *          Adds result to roll results list
+ *          Adds instance to scrollrect content
+ *          Scales scrollrect content *          
+ *      
+ *      void Roll()
+ *              Get value of dice type dropdown, run SwitchDice() with value
+ *              Run Roll()
+ *              Run raycast from RollsManager.diceCamera
+ *                  On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
+ */
