@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class RollsManager : MonoBehaviour
 {
-    [SerializeField] private GameObject dice;
+    [SerializeField] private Dice dice;
     [SerializeField] private Camera diceCamera;
     public Camera DiceCam
     {
@@ -36,6 +36,7 @@ public class RollsManager : MonoBehaviour
         rollButton.onClick.AddListener( delegate { Roll(); });
         clearButton.onClick.AddListener( delegate { Clear(); });
         diceCameraOrigin = diceCamera.transform;
+        if (dice == null) { dice = FindObjectOfType<Dice>(true); }
     }
 
 
@@ -72,14 +73,10 @@ public class RollsManager : MonoBehaviour
     /// </summary>
     public void Roll()
     {
-
+        dice.Roll();
     }
 }
-/*              
- *      void Awake()
- *          Sets rollButton.onClick to run Roll()
- *          Sets clearButton.onClick to run Clear()
- *          
+/*          
  *      void AddResult(int result)
  *          Adds result to roll results list
  *          Adds instance to scrollrect content
