@@ -39,13 +39,13 @@ public class RollsManager : MonoBehaviour
  *          
  *      void Clear()
  *          Reloads scene
+ *          
+ *      void ResetCam()
+ *          Reset camera transform to starting transform
  *      
  *      void Roll()
  *              Get value of dice type dropdown, run SwitchDice() with value
  *              Run Roll()
- *              Run raycast from RollsManager.diceCamera
- *                  On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
- *                  
  *                  
  *      Convert resultsList to Dictionary, using roll number as index, for sorting?
  */

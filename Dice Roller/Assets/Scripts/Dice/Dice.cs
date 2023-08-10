@@ -47,7 +47,8 @@ Roll(); // DEBUGGING
     /// Rolls the die and gets result.
     /// </summary>
     public void Roll()
-    {        
+    {
+        // Run RollsManager.ResetCam()
         if (range == 0) { SwitchDice(6); }
 
         if (!showAnimation)
@@ -135,6 +136,9 @@ Roll(); // DEBUGGING
  * TO DO
  *  This
  *      RollCheck()
- *          Gets result
+ *          Gets result using RollsManager.DiceCam as raycaster
+ *              Have RollsManager.diceCamera look toward die
+ *              Run raycast from RollsManager.diceCamera
+ *              On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
  *          Runs RollsManager.AddResult() with roll result
  */
