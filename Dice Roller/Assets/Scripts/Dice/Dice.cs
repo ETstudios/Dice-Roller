@@ -137,27 +137,4 @@ Roll(); // DEBUGGING
  *      RollCheck()
  *          Gets result
  *          Runs RollsManager.AddResult() with roll result
- *      
- *  RollsManager
- *      Property GameObject dice
- *      Property List<int> roll results
- *      Property Camera dice camera
- *      Property RectTransform scrollrect content - used as results feed and updating scrollbar size
- *      Property Text result text (prefab) - used to instance .gameObject with each new result, set .text and .name as roll result
- *      Property Dropdown dice type - used to switch dice value
- *      Property Button roll button - used to run roll
- *              
- *      void Awake()
- *          Sets rollButton.onClick to run Roll()
- *          
- *      void AddResult(int result)
- *          Adds result to roll results list
- *          Adds instance to scrollrect content
- *          Scales scrollrect content *          
- *      
- *      void Roll()
- *              Get value of dice type dropdown, run SwitchDice() with value
- *              Run Roll()
- *              Run raycast from RollsManager.diceCamera
- *                  On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
  */
