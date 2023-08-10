@@ -10,6 +10,11 @@ public class RollsManager : MonoBehaviour
 {
     [SerializeField] private GameObject dice;
     [SerializeField] private Camera diceCamera;
+    public Camera DiceCam
+    {
+        get { return diceCamera; }
+        set { diceCamera = value; }
+    }
 
     [Space, Header("UI")]
     [SerializeField] private RectTransform scrollrectContent;
