@@ -34,7 +34,6 @@ public class Dice : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startTransform = GetComponent<Transform>();
         manager = FindObjectOfType<RollsManager>(true);
-Roll(); // DEBUGGING
     }
 
 
