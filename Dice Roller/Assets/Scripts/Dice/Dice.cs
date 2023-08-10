@@ -62,7 +62,7 @@ Roll(); // DEBUGGING
     /// </summary>
     public void Roll()
     {
-        // Run RollsManager.ResetCam()
+        manager.ResetCam();
         if (range == 0) { SwitchDice(6); }
 
         if (!showAnimation)
@@ -99,7 +99,7 @@ Roll(); // DEBUGGING
 
 
     /// <summary>
-    /// Switches die mesh and collider.
+    /// Switches die to a model nested within this object.
     /// </summary>
     /// <param name="sides"> int Number of sides to die. </param>
     public void SwitchDice(int sides)
@@ -170,7 +170,4 @@ Roll(); // DEBUGGING
  *              Run raycast from RollsManager.diceCamera
  *              On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
  *          Runs RollsManager.AddResult() with roll result
- *          
- *      SwitchDice()
- *          Switch model to use, nested inside this object
  */
