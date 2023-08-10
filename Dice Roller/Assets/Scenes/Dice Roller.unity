@@ -3518,7 +3518,7 @@ GameObject:
   - component: {fileID: 1235475676}
   - component: {fileID: 1235475680}
   m_Layer: 6
-  m_Name: 6
+  m_Name: d6
   m_TagString: Dice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3620,6 +3620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6efe3d8ab734464eb33d06a38a20529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceSides: 6
 --- !u!1 &1293941099
 GameObject:
   m_ObjectHideFlags: 0
