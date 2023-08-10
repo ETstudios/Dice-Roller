@@ -42,7 +42,7 @@ Roll(); // DEBUGGING
     {
         foreach (DieOption die in GetComponentsInChildren<DieOption>(true))
         {
-            diceOptions.Add(die.name, die.gameObject);
+            diceOptions.Add(die.Sides, die.gameObject);
         }
     }
 
@@ -81,8 +81,7 @@ Roll(); // DEBUGGING
             rb.AddForce(Vector3.up * throwStrength, ForceMode.Impulse);
 
             // Rotate random amount around each axis of transform
-            rb.AddTorque(transform.forward * GetTorque() + transform.up * GetTorque() + transform.right * GetTorque());
-            
+            rb.AddTorque(transform.forward * GetTorque() + transform.up * GetTorque() + transform.right * GetTorque());            
 
             StartCoroutine(WaitForStop());
         }
@@ -95,7 +94,6 @@ Roll(); // DEBUGGING
     public int RollCheck()
     {
         int roll = -1;
-        Debug.Log(roll);
         return roll;
     }
 
