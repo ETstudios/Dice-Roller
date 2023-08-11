@@ -24,6 +24,7 @@ public class RollsManager : MonoBehaviour
     [SerializeField] private Button rollButton;
     [SerializeField] private Button clearButton;
 
+    private GameManager manager;
     private List<int> resultsList = new List<int>();
     private Transform diceCameraOrigin;
 
@@ -33,6 +34,7 @@ public class RollsManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        manager = FindObjectOfType<GameManager>(true);
         rollButton.onClick.AddListener( delegate { Roll(); });
         clearButton.onClick.AddListener( delegate { Clear(); });
         diceCameraOrigin = diceCamera.transform;
@@ -56,7 +58,7 @@ public class RollsManager : MonoBehaviour
     /// </summary>
     private void Clear()
     {
-        // Run SceneManager.LoadScene(SceneManager.GetScene())
+        manager.Scenes.SceneSwitch(manager.Scenes.Current);
     }
 
 
@@ -102,9 +104,6 @@ public class RollsManager : MonoBehaviour
  *      
  *      void Roll()
  *              Get value of dice type dropdown, run SwitchDice() with value
- *              Run Roll()
- *              
- *              
  *                  
  *      Convert resultsList to Dictionary, using roll number as index, for sorting?
  */
