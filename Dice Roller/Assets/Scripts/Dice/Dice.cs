@@ -94,7 +94,6 @@ public class Dice : MonoBehaviour
     public void RollCheck()
     {
         manager.AddResult(Random.Range(1, rollValue));
-        manager.FocusCam();
     }
 
 
@@ -153,6 +152,7 @@ public class Dice : MonoBehaviour
         // If die is moving, wait
         while (rb.angularVelocity.sqrMagnitude > 0.1)
         {
+            manager.FocusCam();
             yield return new WaitForFixedUpdate();
         }
 
