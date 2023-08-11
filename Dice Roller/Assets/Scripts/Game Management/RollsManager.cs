@@ -46,7 +46,7 @@ public class RollsManager : MonoBehaviour
     /// <param name="result"> int Result of roll. </param>
     public void AddResult(int result)
     {
-
+        Debug.Log(result);
     }
 
 
@@ -56,6 +56,17 @@ public class RollsManager : MonoBehaviour
     private void Clear()
     {
         // Run SceneManager.LoadScene(SceneManager.GetScene())
+    }
+
+
+    /// <summary>
+    /// Points camera at die.
+    /// </summary>
+    public void FocusCam() { FocusCam(dice.transform); }
+
+    public void FocusCam(Transform target)
+    {
+        diceCamera.transform.LookAt(target);
     }
 
 
