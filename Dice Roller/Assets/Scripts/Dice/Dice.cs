@@ -164,11 +164,3 @@ public class Dice : MonoBehaviour
         StopCoroutine(WaitForStop());
     }
 }
-
-/*
- * TO DO
- *      RollCheck()
- *          Gets result using RollsManager.DiceCam as raycaster
- *              Run raycast from RollsManager.diceCamera
- *              On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
- */
