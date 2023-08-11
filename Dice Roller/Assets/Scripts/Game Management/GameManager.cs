@@ -25,4 +25,21 @@ public class GameManager : MonoBehaviour
         sceneManager = GetComponent<ScenesManager>();
         sceneManager.SceneSwitch(firstScreen);
     }
+
+
+    /// <summary>
+    /// Gets Vector2 for scaling scrollrect content.
+    /// </summary>
+    /// <param name="contentBox"> rectTransform The content box within scrollrect to scale. </param>
+    /// <param name="multiplier"> int How many times to scale contentBox. </param>
+    /// <param name="scaler"> float Size by which to scale. </param>
+    /// <returns></returns>
+    public Vector2 ContentScale(RectTransform contentBox, int multiplier, float scaler)
+    {
+        float scaleX = contentBox.sizeDelta.x;
+        float scaleY = contentBox.sizeDelta.y;
+        float adjustedSize = scaleY + (multiplier * scaler);
+        Vector2 newScale = new Vector2(scaleX, adjustedSize);
+        return newScale;
+    }
 }
