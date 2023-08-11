@@ -19,6 +19,7 @@ public class RollsManager : MonoBehaviour
 
     [Space, Header("UI")]
     [SerializeField] private RectTransform scrollrectContent;
+    [SerializeField] private RectTransform resultsFeed;
     [SerializeField] private Text resultTemplate;
     [SerializeField] private Dropdown diceType;
     [SerializeField] private Button rollButton;
@@ -27,6 +28,7 @@ public class RollsManager : MonoBehaviour
     private GameManager manager;
     private List<int> resultsList = new List<int>();
     private Transform diceCameraOrigin;
+    private float resultHeight;
 
 
     /// <summary>
@@ -39,6 +41,7 @@ public class RollsManager : MonoBehaviour
         clearButton.onClick.AddListener( delegate { Clear(); });
         diceCameraOrigin = diceCamera.transform;
         if (dice == null) { dice = FindObjectOfType<Dice>(true); }
+        resultHeight = resultTemplate.GetComponent<RectTransform>().sizeDelta.y;
     }
 
 
@@ -50,11 +53,15 @@ public class RollsManager : MonoBehaviour
     {
         resultsList.Add(result);
 
-        if (scrollrectContent != null && resultTemplate != null)
+        if (scrollrectContent != null && resultsFeed != null && resultTemplate != null)
         {
-
+            GameObject instance = Instantiate(resultTemplate.gameObject, resultsFeed, false);
+            string roll = result.ToString();
+            instance.name = roll;
+            instance.GetComponent<Text>().text = $"{roll}";
+            instance.SetActive(true);
+            scrollrectContent.sizeDelta = manager.ContentScale(scrollrectContent, 1, resultHeight);
         }
-        Debug.Log(result);
         rollButton.interactable = true;
     }
 
@@ -103,13 +110,7 @@ public class RollsManager : MonoBehaviour
         }        
     }
 }
-/*          
- *      void AddResult(int result)
- *          Adds instance to scrollrect content
- *              Instance .gameObject with each new result
- *              Set .text and .name as roll result
- *          Scales scrollrect content * instance height
- *      
+/*
  *      void Roll()
  *              Get value of dice type dropdown, run SwitchDice() with value
  *                  
