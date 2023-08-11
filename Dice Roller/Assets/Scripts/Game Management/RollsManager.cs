@@ -105,14 +105,12 @@ public class RollsManager : MonoBehaviour
     {
         if (rollButton.interactable)
         {
+            dice.SwitchDice(int.Parse(diceType.options[diceType.value].text));
             rollButton.interactable = false;
             dice.Roll();
         }        
     }
 }
 /*
- *      void Roll()
- *              Get value of dice type dropdown, run SwitchDice() with value
- *                  
  *      Convert resultsList to Dictionary, using roll number as index, for sorting?
  */
