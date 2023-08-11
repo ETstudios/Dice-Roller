@@ -48,6 +48,12 @@ public class RollsManager : MonoBehaviour
     /// <param name="result"> int Result of roll. </param>
     public void AddResult(int result)
     {
+        resultsList.Add(result);
+
+        if (scrollrectContent != null && resultTemplate != null)
+        {
+
+        }
         Debug.Log(result);
         rollButton.interactable = true;
     }
@@ -65,7 +71,10 @@ public class RollsManager : MonoBehaviour
     /// <summary>
     /// Points camera at die.
     /// </summary>
-    public void FocusCam() { FocusCam(dice.transform); }
+    public void FocusCam()
+    {
+        FocusCam(dice.transform);
+    }
 
     public void FocusCam(Transform target)
     {
@@ -96,7 +105,6 @@ public class RollsManager : MonoBehaviour
 }
 /*          
  *      void AddResult(int result)
- *          Adds result to roll results list
  *          Adds instance to scrollrect content
  *              Instance .gameObject with each new result
  *              Set .text and .name as roll result
