@@ -24,6 +24,7 @@ public class Dice : MonoBehaviour
     private int range = 0;
     private Transform startTransform;
     private Dictionary<string, GameObject> diceOptions = new Dictionary<string, GameObject>();
+    private int rollValue = 0;
 
 
     /// <summary>
@@ -72,8 +73,8 @@ public class Dice : MonoBehaviour
         {
             // Reset die position
             rb.useGravity = false;
-            transform.position = startTransform.position;
-            transform.rotation = startTransform.rotation;
+            transform.localPosition = startTransform.localPosition;
+            transform.eulerAngles = startTransform.eulerAngles;
             rb.useGravity = true;
 
             // Throw die up
@@ -90,10 +91,10 @@ public class Dice : MonoBehaviour
     /// <summary>
     /// Rolls actual number.
     /// </summary>
-    public int RollCheck()
+    public void RollCheck()
     {
-        int roll = -1;
-        return roll;
+        manager.AddResult(Random.Range(1, rollValue));
+        manager.FocusCam();
     }
 
 
@@ -119,6 +120,7 @@ public class Dice : MonoBehaviour
             case 20:
             case 100:
                 isValidDie = true;
+                rollValue = sides;
                 break;
         }
 
@@ -169,4 +171,10 @@ public class Dice : MonoBehaviour
  *              Run raycast from RollsManager.diceCamera
  *              On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
  *          Runs RollsManager.AddResult() with roll result
+ *          
+ *     
+ *      Roll()
+ *          Reset die position and rotation to origin
+ *      
+ *      While waiting in WaitForStop(), disable Roll button. Enable after completion of adding to list.
  */
