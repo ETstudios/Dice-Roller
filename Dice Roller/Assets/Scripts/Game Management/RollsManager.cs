@@ -47,6 +47,7 @@ public class RollsManager : MonoBehaviour
     public void AddResult(int result)
     {
         Debug.Log(result);
+        rollButton.interactable = true;
     }
 
 
@@ -66,7 +67,7 @@ public class RollsManager : MonoBehaviour
 
     public void FocusCam(Transform target)
     {
-        diceCamera.transform.LookAt(target);
+        // diceCamera.transform.LookAt(target);
     }
 
 
@@ -84,7 +85,11 @@ public class RollsManager : MonoBehaviour
     /// </summary>
     public void Roll()
     {
-        dice.Roll();
+        if (rollButton.interactable)
+        {
+            rollButton.interactable = false;
+            dice.Roll();
+        }        
     }
 }
 /*          
