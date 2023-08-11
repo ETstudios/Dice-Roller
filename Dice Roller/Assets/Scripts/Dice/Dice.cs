@@ -22,7 +22,8 @@ public class Dice : MonoBehaviour
     private RollsManager manager;
     private Rigidbody rb;
     private int range = 0;
-    private Transform startTransform;
+    private Vector3 startPosition;
+    private Vector3 startRotation;
     private Dictionary<string, GameObject> diceOptions = new Dictionary<string, GameObject>();
     private int rollValue = 0;
 
@@ -33,11 +34,15 @@ public class Dice : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        startTransform = GetComponent<Transform>();
         manager = FindObjectOfType<RollsManager>(true);
+        startPosition = transform.localPosition;
+        startRotation = transform.eulerAngles;
     }
 
 
+    /// <summary>
+    /// Fills dice options dictionary.
+    /// </summary>
     private void Start()
     {
         foreach (DieOption die in GetComponentsInChildren<DieOption>(true))
@@ -56,7 +61,6 @@ public class Dice : MonoBehaviour
     }
 
 
-
     /// <summary>
     /// Rolls the die and gets result.
     /// </summary>
@@ -73,8 +77,8 @@ public class Dice : MonoBehaviour
         {
             // Reset die position
             rb.useGravity = false;
-            transform.localPosition = startTransform.localPosition;
-            transform.eulerAngles = startTransform.eulerAngles;
+            transform.localPosition = startPosition;
+            transform.eulerAngles = startRotation;
             rb.useGravity = true;
 
             // Throw die up
@@ -141,7 +145,6 @@ public class Dice : MonoBehaviour
     }
 
 
-
     /// <summary>
     /// Delays result until die stops rolling.
     /// </summary>
@@ -164,17 +167,8 @@ public class Dice : MonoBehaviour
 
 /*
  * TO DO
- *  This
  *      RollCheck()
  *          Gets result using RollsManager.DiceCam as raycaster
- *              Have RollsManager.diceCamera look toward die
  *              Run raycast from RollsManager.diceCamera
  *              On hitting tag DiceSide, get first collider.name in list of colliders and use int.Parse(name) to get roll value
- *          Runs RollsManager.AddResult() with roll result
- *          
- *     
- *      Roll()
- *          Reset die position and rotation to origin
- *      
- *      While waiting in WaitForStop(), disable Roll button. Enable after completion of adding to list.
  */
