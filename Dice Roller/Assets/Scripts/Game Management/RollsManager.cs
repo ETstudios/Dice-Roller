@@ -111,6 +111,3 @@ public class RollsManager : MonoBehaviour
         }        
     }
 }
-/*
- *      Convert resultsList to Dictionary, using roll number as index, for sorting?
- */
